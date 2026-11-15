@@ -36,13 +36,18 @@
 function doPost(e) {
   try {
     var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = ss.getActiveSheet();
+    // Usa la primera pestaña de la hoja de cálculo
+    var sheet = ss.getSheets()[0];
     
-    // Parsear datos recibidos
+    // Parsear datos recibidos (acepta JSON o parámetros de formulario)
     var data = {};
-    if (e.postData && e.postData.contents) {
-      data = JSON.parse(e.postData.contents);
-    } else if (e.parameter) {
+    if (e && e.postData && e.postData.contents) {
+      try {
+        data = JSON.parse(e.postData.contents);
+      } catch (err) {
+        data = e.parameter || {};
+      }
+    } else if (e && e.parameter) {
       data = e.parameter;
     }
     

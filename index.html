@@ -145,25 +145,25 @@
     <section class="py-20 md:py-24 bg-white text-center">
         <div class="max-w-4xl mx-auto px-6 fade-in-up">
             <h2 class="text-xs md:text-sm uppercase tracking-[0.3em] text-sage-green mb-6 font-semibold">La Cuenta Atrás</h2>
-            <div class="flex justify-center gap-5 md:gap-16" id="countdown">
-                <div class="flex flex-col items-center">
-                    <span id="days" class="text-4xl md:text-6xl font-serif text-charcoal">00</span>
-                    <span class="text-[10px] md:text-xs uppercase tracking-widest mt-3 text-gray-500 font-medium">Días</span>
+            <div class="flex justify-center items-start gap-2.5 sm:gap-5 md:gap-14" id="countdown">
+                <div class="flex flex-col items-center min-w-[48px] sm:min-w-[65px]">
+                    <span id="days" class="text-3xl sm:text-4xl md:text-6xl font-serif text-charcoal">00</span>
+                    <span class="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest mt-2 sm:mt-3 text-gray-500 font-medium">Días</span>
                 </div>
-                <div class="text-3xl md:text-5xl font-serif text-sage-green font-light mt-1 md:mt-2">:</div>
-                <div class="flex flex-col items-center">
-                    <span id="hours" class="text-4xl md:text-6xl font-serif text-charcoal">00</span>
-                    <span class="text-[10px] md:text-xs uppercase tracking-widest mt-3 text-gray-500 font-medium">Hrs</span>
+                <div class="text-2xl sm:text-3xl md:text-5xl font-serif text-sage-green font-light mt-0.5 sm:mt-1 md:mt-2">:</div>
+                <div class="flex flex-col items-center min-w-[48px] sm:min-w-[65px]">
+                    <span id="hours" class="text-3xl sm:text-4xl md:text-6xl font-serif text-charcoal">00</span>
+                    <span class="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest mt-2 sm:mt-3 text-gray-500 font-medium">Hrs</span>
                 </div>
-                <div class="text-3xl md:text-5xl font-serif text-sage-green font-light mt-1 md:mt-2">:</div>
-                <div class="flex flex-col items-center">
-                    <span id="minutes" class="text-4xl md:text-6xl font-serif text-charcoal">00</span>
-                    <span class="text-[10px] md:text-xs uppercase tracking-widest mt-3 text-gray-500 font-medium">Min</span>
+                <div class="text-2xl sm:text-3xl md:text-5xl font-serif text-sage-green font-light mt-0.5 sm:mt-1 md:mt-2">:</div>
+                <div class="flex flex-col items-center min-w-[48px] sm:min-w-[65px]">
+                    <span id="minutes" class="text-3xl sm:text-4xl md:text-6xl font-serif text-charcoal">00</span>
+                    <span class="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest mt-2 sm:mt-3 text-gray-500 font-medium">Min</span>
                 </div>
-                <div class="text-3xl md:text-5xl font-serif text-sage-green font-light mt-1 md:mt-2 hidden md:block">:</div>
-                <div class="flex flex-col items-center hidden md:flex">
-                    <span id="seconds" class="text-4xl md:text-6xl font-serif text-charcoal">00</span>
-                    <span class="text-[10px] md:text-xs uppercase tracking-widest mt-3 text-gray-500 font-medium">Seg</span>
+                <div class="text-2xl sm:text-3xl md:text-5xl font-serif text-sage-green font-light mt-0.5 sm:mt-1 md:mt-2">:</div>
+                <div class="flex flex-col items-center min-w-[48px] sm:min-w-[65px]">
+                    <span id="seconds" class="text-3xl sm:text-4xl md:text-6xl font-serif text-charcoal">00</span>
+                    <span class="text-[9px] sm:text-[10px] md:text-xs uppercase tracking-widest mt-2 sm:mt-3 text-gray-500 font-medium">Seg</span>
                 </div>
             </div>
         </div>
@@ -950,7 +950,7 @@
                         await fetch(GOOGLE_SCRIPT_URL, {
                             method: 'POST',
                             mode: 'no-cors',
-                            headers: { 'Content-Type': 'application/json' },
+                            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                             body: JSON.stringify(payload)
                         });
                     } else {
