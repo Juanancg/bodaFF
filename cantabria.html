@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubre Cantabria | Boda de Fabiana y Fernando</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sage-green': '#8A9A86',
+                        'sage-dark': '#647461',
+                        'sand-light': '#F9F8F6',
+                        'sand-dark': '#E6E2D8',
+                        'charcoal': '#333333',
+                        'gold-accent': '#C9A96E'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.65) 100%);
+        }
+    </style>
+</head>
+<body class="bg-sand-light text-charcoal font-sans antialiased overflow-x-hidden selection:bg-sage-green selection:text-white">
+
+    <!-- Navigation (Solo Logo Marrón) -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-sm py-3">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <!-- Brand / Solo Logo Marrón -->
+            <a href="index.html#inicio" class="flex items-center text-charcoal transition-colors group" aria-label="Inicio">
+                <img src="assets/images/logo-marron.png" alt="Logo Fabiana & Fernando" class="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105">
+            </a>
+            
+            <!-- Desktop Navigation Menu -->
+            <ul class="hidden lg:flex space-x-4 xl:space-x-6 text-[11px] uppercase tracking-[0.14em] text-charcoal font-medium items-center">
+                <li><a href="index.html#inicio" class="hover:text-gold-accent transition-colors">Inicio</a></li>
+                <li><a href="index.html#eventos" class="hover:text-gold-accent transition-colors">El Día</a></li>
+                <li><a href="index.html#alojamiento" class="hover:text-gold-accent transition-colors">Hotel</a></li>
+                <li><a href="index.html#como-llegar" class="hover:text-gold-accent transition-colors">Cómo llegar</a></li>
+                <li><a href="index.html#vestimenta" class="hover:text-gold-accent transition-colors">Vestimenta</a></li>
+                <li><a href="index.html#confirmar-asistencia" class="hover:text-gold-accent transition-colors">Confirmar Asistencia</a></li>
+                <li><a href="cantabria.html" class="px-3.5 py-1.5 bg-sage-green text-white rounded font-semibold tracking-wider">Cantabria</a></li>
+            </ul>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="mobile-menu-btn" type="button" class="lg:hidden text-charcoal p-2 focus:outline-none" aria-label="Abrir menú">
+                <svg id="hamburger-icon" class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg id="close-icon" class="w-6 h-6 stroke-current hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="lg:hidden hidden bg-white border-t border-gray-100 shadow-xl px-6 py-5">
+            <ul class="flex flex-col space-y-4 text-xs uppercase tracking-[0.16em] font-medium text-charcoal">
+                <li><a href="index.html#inicio" class="block py-2 hover:text-sage-green border-b border-gray-100">Inicio</a></li>
+                <li><a href="index.html#eventos" class="block py-2 hover:text-sage-green border-b border-gray-100">El Día</a></li>
+                <li><a href="index.html#alojamiento" class="block py-2 hover:text-sage-green border-b border-gray-100">Hotel</a></li>
+                <li><a href="index.html#como-llegar" class="block py-2 hover:text-sage-green border-b border-gray-100">Cómo llegar</a></li>
+                <li><a href="index.html#vestimenta" class="block py-2 hover:text-sage-green border-b border-gray-100">Vestimenta</a></li>
+                <li><a href="index.html#confirmar-asistencia" class="block py-2 hover:text-sage-green border-b border-gray-100">Confirmar Asistencia</a></li>
+                <li><a href="cantabria.html" class="block py-2 text-sage-green font-semibold">Cantabria (Página actual)</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Header con foto de Costa Quebrada (cantabria-1.jpg) -->
+    <header class="relative pt-36 pb-24 md:pt-48 md:pb-32 flex items-center justify-center text-center bg-cover bg-center" style="background-image: url('assets/images/cantabria/cantabria-1.jpg');">
+        <div class="absolute inset-0 hero-overlay"></div>
+        <div class="relative z-10 text-white max-w-4xl mx-auto px-6 fade-in-up">
+            <span class="text-xs md:text-sm uppercase tracking-[0.3em] text-sand-dark font-semibold mb-4 block drop-shadow">Guía para Invitados</span>
+            <h1 class="text-5xl md:text-7xl font-serif italic mb-6 drop-shadow-md">Descubre Cantabria</h1>
+            <div class="w-20 h-[1px] bg-gold-accent mx-auto mb-6"></div>
+            <p class="text-base md:text-xl font-light text-gray-100 leading-relaxed max-w-2xl mx-auto drop-shadow">
+                Bienvenidos a "La Tierruca", un rincón mágico del norte de España donde las verdes montañas abrazan al mar Cantábrico.
+            </p>
+        </div>
+    </header>
+
+    <!-- Mensaje Especial para Invitados Internacionales -->
+    <section class="py-16 bg-white border-b border-sand-dark/50">
+        <div class="max-w-4xl mx-auto px-6 text-center fade-in-up">
+            <span class="text-xs uppercase tracking-[0.25em] text-sage-green font-semibold mb-2 block">Un viaje inolvidable</span>
+            <h2 class="text-3xl md:text-4xl font-serif italic text-charcoal mb-4">A todos los que venís desde lejos</h2>
+            <div class="w-16 h-[1px] bg-gold-accent mx-auto mb-6"></div>
+            <p class="text-gray-600 font-light text-base md:text-lg leading-relaxed mb-4">
+                Sabemos que muchos de vosotros hacéis un esfuerzo inmenso cruzando el océano desde <strong>Venezuela</strong> y diferentes partes del mundo para estar con nosotros en nuestro gran día.
+            </p>
+            <p class="text-gray-600 font-light text-base leading-relaxed">
+                Queremos que vuestra estancia sea una experiencia maravillosa e inolvidable. Cantabria es famosa por sus paisajes de postal, su gente acogedora y una de las mejores gastronomías de España. ¡Aquí tenéis nuestras recomendaciones favoritas para aprovechar vuestro viaje!
+            </p>
+        </div>
+    </section>
+
+    <!-- 1. Santander y el Palacio de la Magdalena (cantabria-2.webp) -->
+    <section class="py-20 bg-sand-light">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in-up">
+                    <img src="assets/images/cantabria/cantabria-2.webp" alt="Palacio de la Magdalena en Santander" class="w-full h-80 md:h-[420px] object-cover rounded-2xl shadow-xl">
+                </div>
+                <div class="fade-in-up">
+                    <span class="text-xs uppercase tracking-[0.2em] text-sage-green font-semibold mb-3 block">La Capital Cántabra · A 20 min</span>
+                    <h3 class="text-3xl md:text-4xl font-serif italic text-charcoal mb-4">Santander y su Bahía</h3>
+                    <div class="w-16 h-[1px] bg-gold-accent mb-6"></div>
+                    <p class="text-gray-600 font-light text-sm md:text-base leading-relaxed mb-4">
+                        Situada a solo 20-25 minutos de Castañeda y Puente Viesgo, Santander es una de las ciudades más señoriales y elegantes del norte de España, asomada a una de las bahías más hermosas del mundo.
+                    </p>
+                    <ul class="text-sm text-gray-700 space-y-3 font-light mb-6">
+                        <li class="flex items-start">
+                            <span class="text-sage-green font-bold mr-2 text-base">&bull;</span>
+                            <span><strong>Península y Palacio de la Magdalena:</strong> Antigua residencia real de verano del rey Alfonso XIII, rodeada de jardines y acantilados con vistas de 360° al mar.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-sage-green font-bold mr-2 text-base">&bull;</span>
+                            <span><strong>Playas de El Sardinero:</strong> Amplias playas de arena dorada, el Gran Casino y el paseo marítimo.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-sage-green font-bold mr-2 text-base">&bull;</span>
+                            <span><strong>Centro Botín y Paseo de Pereda:</strong> Obra maestra de la arquitectura moderna diseñada por Renzo Piano volando sobre el agua de la bahía.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Santillana del Mar -->
+    <section class="py-20 bg-white border-t border-sand-dark/40">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in-up order-2 md:order-1">
+                    <div class="flex items-center space-x-3 mb-3">
+                        <span class="px-3 py-1 text-[11px] uppercase tracking-wider font-semibold rounded-full bg-gold-accent/20 text-charcoal">
+                            A solo 20 min de Castañeda
+                        </span>
+                    </div>
+                    <h3 class="text-3xl md:text-4xl font-serif italic text-charcoal mb-4">Santillana del Mar</h3>
+                    <div class="w-16 h-[1px] bg-gold-accent mb-6"></div>
+                    <p class="text-gray-600 font-light text-sm md:text-base leading-relaxed mb-4">
+                        Conocida popularmente como "la villa de las tres mentiras" (porque ni es santa, ni llana, ni tiene mar), es uno de los pueblos con mayor valor histórico y artístico de toda España, prácticamente congelado en el tiempo.
+                    </p>
+                    <ul class="text-sm text-gray-700 space-y-3 font-light mb-6">
+                        <li class="flex items-start">
+                            <span class="text-sage-green font-bold mr-2 text-base">&bull;</span>
+                            <span><strong>Casco histórico empedrado:</strong> Calles medievales adoquinadas, balconadas floridas y casonas de piedra de los siglos XIV al XVIII.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-sage-green font-bold mr-2 text-base">&bull;</span>
+                            <span><strong>Colegiata de Santa Juliana:</strong> Joya románica con uno de los claustros medievales más admirados del norte de España.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-sage-green font-bold mr-2 text-base">&bull;</span>
+                            <span><strong>Cueva de Altamira:</strong> A solo 2 km se encuentra la Neocueva y Museo de Altamira, considerada "la Capilla Sixtina del arte rupestre paleolítico".</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-sage-green font-bold mr-2 text-base">&bull;</span>
+                            <span><strong>Tradición gastronómica:</strong> Parada obligada para tomar un vaso de leche fresca con bizcocho o sobaos en sus tabernas tradicionales.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="fade-in-up order-1 md:order-2">
+                    <div class="p-3 bg-sand-light rounded-3xl border border-sand-dark shadow-xl">
+                        <img src="https://images.unsplash.com/photo-1548625361-ec85387c2fb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Santillana del Mar" class="w-full h-80 md:h-[400px] object-cover rounded-2xl">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Parque de la Naturaleza de Cabárceno -->
+    <section class="py-20 bg-sand-light border-t border-sand-dark/40">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="bg-white rounded-3xl p-8 md:p-14 border border-sand-dark/80 shadow-md fade-in-up">
+                <div class="flex flex-col lg:flex-row items-center gap-10">
+                    <div class="lg:w-2/3">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <span class="px-3.5 py-1 text-[11px] uppercase tracking-wider font-semibold rounded-full bg-sage-green text-white">
+                                Naturaleza · A 15 min
+                            </span>
+                            <span class="text-xs uppercase tracking-widest text-gold-accent font-medium">Junto al Hotel de la Boda</span>
+                        </div>
+                        <h3 class="text-3xl md:text-4xl font-serif italic text-charcoal mb-4">Parque de la Naturaleza de Cabárceno</h3>
+                        <div class="w-16 h-[1px] bg-gold-accent mb-6"></div>
+                        <p class="text-gray-600 font-light text-sm md:text-base leading-relaxed mb-4">
+                            Un espacio natural construido sobre una antigua mina de hierro a cielo abierto. Sus espectaculares formaciones rocosas kársticas de color rojizo albergan en régimen de <strong>semilibertad</strong> a más de 120 especies animales de los 5 continentes en más de 750 hectáreas.
+                        </p>
+                        <div class="grid sm:grid-cols-2 gap-4 text-xs md:text-sm text-gray-700 font-light mt-6">
+                            <div class="flex items-start">
+                                <span class="w-2 h-2 rounded-full bg-sage-green mt-1.5 mr-2.5 flex-shrink-0"></span>
+                                <span><strong>Fauna en grandes recintos:</strong> Osos pardos ibéricos, elefantes africanos, jirafas, gorilas, rinocerontes y tigres.</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="w-2 h-2 rounded-full bg-sage-green mt-1.5 mr-2.5 flex-shrink-0"></span>
+                                <span><strong>Teleférico panorámico:</strong> Sobrevuela los recintos de los animales y las agujas kársticas con vistas aéreas increíbles.</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="w-2 h-2 rounded-full bg-sage-green mt-1.5 mr-2.5 flex-shrink-0"></span>
+                                <span><strong>Visita en coche:</strong> Cuenta con más de 20 km de carreteras internas para recorrerlo a tu propio ritmo.</span>
+                            </div>
+                            <div class="flex items-start">
+                                <span class="w-2 h-2 rounded-full bg-sage-green mt-1.5 mr-2.5 flex-shrink-0"></span>
+                                <span><strong>Ubicación perfecta:</strong> A solo 15 minutos de Castañeda y del Balneario de Puente Viesgo.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/3 text-center">
+                        <div class="p-6 bg-sand-light rounded-2xl border border-sand-dark shadow-sm">
+                            <span class="text-4xl mb-3 block">🚡 🐻</span>
+                            <h5 class="font-serif italic text-lg text-charcoal mb-2">Visita Recomendada</h5>
+                            <p class="text-xs text-gray-500 font-light leading-relaxed mb-4">
+                                Ideal para pasar una mañana o tarde antes o después del día de la boda. Una experiencia fantástica.
+                            </p>
+                            <a href="https://parquedecabarceno.com/" target="_blank" rel="noopener noreferrer" class="inline-block px-5 py-2.5 bg-sage-green hover:bg-sage-dark text-white text-xs uppercase tracking-wider font-semibold rounded transition-colors shadow-sm">
+                                Web Oficial Cabárceno &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Costa Quebrada y Playas Salvajes (cantabria-1.jpg y cantabria-4.jpg) -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-14 fade-in-up">
+                <span class="text-xs uppercase tracking-[0.2em] text-sage-green font-semibold mb-2 block">Naturaleza en Estado Puro</span>
+                <h3 class="text-3xl md:text-4xl font-serif italic text-charcoal mb-4">Playas y Costa Salvaje</h3>
+                <div class="w-16 h-[1px] bg-gold-accent mx-auto mb-4"></div>
+                <p class="text-gray-600 font-light text-sm max-w-2xl mx-auto">
+                    El mar Cantábrico ha esculpido durante millones de años una de las costas más impresionantes y fotogénicas de Europa:
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Card 1: Costa Quebrada / Arnía -->
+                <div class="fade-in-up bg-sand-light rounded-2xl overflow-hidden shadow-sm border border-sand-dark/60 flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <div class="h-64 overflow-hidden">
+                            <img src="assets/images/cantabria/cantabria-1.jpg" alt="Costa Quebrada y Playa de la Arnía" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+                        </div>
+                        <div class="p-8">
+                            <span class="text-xs uppercase tracking-wider text-gold-accent font-semibold block mb-2">Liencres · Costa Quebrada</span>
+                            <h4 class="text-2xl font-serif italic text-charcoal mb-3">Playa de la Arnía y Dunas de Liencres</h4>
+                            <p class="text-gray-600 font-light text-sm leading-relaxed">
+                                Un espectáculo geológico de islotes de piedra afilada emergiendo de aguas turquesas y rodeados de prados verdes con flores silvestres. Uno de los mejores atardeceres de toda la península.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Playa de Langre -->
+                <div class="fade-in-up bg-sand-light rounded-2xl overflow-hidden shadow-sm border border-sand-dark/60 flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <div class="h-64 overflow-hidden">
+                            <img src="assets/images/cantabria/cantabria-4.jpg" alt="Playa de Langre" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+                        </div>
+                        <div class="p-8">
+                            <span class="text-xs uppercase tracking-wider text-gold-accent font-semibold block mb-2">Ribamontán al Mar · Costa Oriental</span>
+                            <h4 class="text-2xl font-serif italic text-charcoal mb-3">Playa de Langre y Somo</h4>
+                            <p class="text-gray-600 font-light text-sm leading-relaxed">
+                                Espectacular bahía de arena dorada protegida por altos acantilados verticales y praderas verdes. Junto a Somo, es el paraíso del surf y ofrece vistas lejanas a toda la bahía de Santander.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Pueblos con Historia: Potes y San Vicente (cantabria-3.jpg y cantabria-5.jpg) -->
+    <section class="py-20 bg-sand-light border-t border-sand-dark/40">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-14 fade-in-up">
+                <span class="text-xs uppercase tracking-[0.2em] text-sage-green font-semibold mb-2 block">Pueblos Mágicos</span>
+                <h3 class="text-3xl md:text-4xl font-serif italic text-charcoal mb-4">Pueblos de Montaña y Mar</h3>
+                <div class="w-16 h-[1px] bg-gold-accent mx-auto mb-4"></div>
+                <p class="text-gray-600 font-light text-sm max-w-xl mx-auto">
+                    Dos excursiones inolvidables que combinan la arquitectura tradicional con paisajes de postal:
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Potes y Picos de Europa (cantabria-3.jpg) -->
+                <div class="fade-in-up bg-white rounded-2xl overflow-hidden shadow-sm border border-sand-dark/60 flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <div class="h-72 overflow-hidden">
+                            <img src="assets/images/cantabria/cantabria-3.jpg" alt="Potes en los Picos de Europa" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+                        </div>
+                        <div class="p-8">
+                            <span class="text-xs uppercase tracking-wider text-gold-accent font-semibold block mb-2">Comarca de Liébana</span>
+                            <h4 class="text-2xl font-serif italic text-charcoal mb-3">Potes y los Picos de Europa</h4>
+                            <p class="text-gray-600 font-light text-sm leading-relaxed mb-4">
+                                Villa medieval situada a los pies del imponente macizo de los Picos de Europa. Famosa por sus puentes de piedra sobre el río, balconadas de madera repletas de flores, casonas solariegas y tabernas donde degustar el auténtico orujo lebaniego y cocido lebaniego.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- San Vicente de la Barquera (cantabria-5.jpg) -->
+                <div class="fade-in-up bg-white rounded-2xl overflow-hidden shadow-sm border border-sand-dark/60 flex flex-col justify-between hover:shadow-md transition-shadow">
+                    <div>
+                        <div class="h-72 overflow-hidden">
+                            <img src="assets/images/cantabria/cantabria-5.jpg" alt="San Vicente de la Barquera" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
+                        </div>
+                        <div class="p-8">
+                            <span class="text-xs uppercase tracking-wider text-gold-accent font-semibold block mb-2">Costa Occidental</span>
+                            <h4 class="text-2xl font-serif italic text-charcoal mb-3">San Vicente de la Barquera</h4>
+                            <p class="text-gray-600 font-light text-sm leading-relaxed mb-4">
+                                Villa marinera histórica presidida por su castillo medieval y la iglesia de Santa María. Lo más impresionante es su estampa: las rías y barcos pesqueros en primer plano con los picos nevados de fondo. Famosa por sus mariscos y el plato marinero <em>sorropotún</em>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Gastronomía -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-14 fade-in-up">
+                <span class="text-xs uppercase tracking-[0.2em] text-sage-green font-semibold mb-2 block">El Sabor del Norte</span>
+                <h3 class="text-3xl md:text-4xl font-serif italic text-charcoal mb-4">Gastronomía Cántabra</h3>
+                <div class="w-16 h-[1px] bg-gold-accent mx-auto mb-4"></div>
+                <p class="text-gray-600 font-light text-sm max-w-xl mx-auto">
+                    La cocina del norte de España es legendaria. No podéis iros sin probar:
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="fade-in-up p-6 bg-sand-light rounded-xl border border-sand-dark/60 shadow-sm">
+                    <span class="text-2xl mb-2 block">🦑</span>
+                    <h5 class="font-serif italic text-lg text-charcoal mb-2">Rabas de Calamar</h5>
+                    <p class="text-xs text-gray-600 font-light leading-relaxed">El aperitivo por excelencia. Calamar fresquísimo frito a la perfección con limón y vermú.</p>
+                </div>
+                <div class="fade-in-up p-6 bg-sand-light rounded-xl border border-sand-dark/60 shadow-sm">
+                    <span class="text-2xl mb-2 block">🍲</span>
+                    <h5 class="font-serif italic text-lg text-charcoal mb-2">Cocido Montañés</h5>
+                    <p class="text-xs text-gray-600 font-light leading-relaxed">Guiso tradicional de alubias blancas, berza, costilla y compango. Reconfortante y sabroso.</p>
+                </div>
+                <div class="fade-in-up p-6 bg-sand-light rounded-xl border border-sand-dark/60 shadow-sm">
+                    <span class="text-2xl mb-2 block">🐟</span>
+                    <h5 class="font-serif italic text-lg text-charcoal mb-2">Anchoas de Santoña</h5>
+                    <p class="text-xs text-gray-600 font-light leading-relaxed">Consideradas las mejores anchoas del mundo, limpiadas y sobadas a mano una a una en aceite de oliva.</p>
+                </div>
+                <div class="fade-in-up p-6 bg-sand-light rounded-xl border border-sand-dark/60 shadow-sm">
+                    <span class="text-2xl mb-2 block">🍰</span>
+                    <h5 class="font-serif italic text-lg text-charcoal mb-2">Sobaos y Quesadas</h5>
+                    <p class="text-xs text-gray-600 font-light leading-relaxed">Los dulces pasiegos elaborados con auténtica mantequilla y leche de las vacas de los valles.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Consejos Prácticos -->
+    <section class="py-16 bg-sage-green text-white">
+        <div class="max-w-4xl mx-auto px-6 text-center fade-in-up">
+            <span class="text-xs uppercase tracking-[0.25em] text-sand-dark font-semibold mb-2 block">Qué meter en la maleta</span>
+            <h3 class="text-3xl md:text-4xl font-serif italic mb-4">El Clima a Finales de Febrero</h3>
+            <div class="w-16 h-[1px] bg-gold-accent mx-auto mb-6"></div>
+            <p class="text-sand-light font-light text-sm md:text-base leading-relaxed mb-6">
+                El final del invierno en Cantabria tiene un encanto verde y acogedor. Las temperaturas rondan normalmente entre los <strong>10°C y 15°C</strong> durante el día y refresca por la noche.
+            </p>
+            <div class="grid sm:grid-cols-3 gap-6 text-left mt-8">
+                <div class="p-5 bg-white/10 rounded-xl border border-white/20">
+                    <h6 class="font-serif italic text-base mb-1">Ropa de abrigo</h6>
+                    <p class="text-xs font-light text-sand-light/90">Abrigo cómodo, chaqueta o jersey para el exterior y las noches.</p>
+                </div>
+                <div class="p-5 bg-white/10 rounded-xl border border-white/20">
+                    <h6 class="font-serif italic text-base mb-1">Paraguas o impermeable</h6>
+                    <p class="text-xs font-light text-sand-light/90">El "calabobos" o lluvia fina es parte del encanto del verde cantábrico.</p>
+                </div>
+                <div class="p-5 bg-white/10 rounded-xl border border-white/20">
+                    <h6 class="font-serif italic text-base mb-1">Calzado cómodo</h6>
+                    <p class="text-xs font-light text-sand-light/90">Para pasear por las calles empedradas y los jardines de la finca.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action / Volver a la Boda -->
+    <section class="py-20 bg-sand-light text-center">
+        <div class="max-w-3xl mx-auto px-6 fade-in-up">
+            <h3 class="text-3xl md:text-4xl font-serif italic text-charcoal mb-4">¡Estamos deseando veros!</h3>
+            <p class="text-gray-600 font-light text-sm md:text-base leading-relaxed mb-8">
+                No olvides confirmar tu asistencia para ayudarnos con los preparativos de la boda.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="index.html#confirmar-asistencia" class="px-8 py-3.5 bg-sage-green hover:bg-sage-dark text-white rounded text-xs uppercase tracking-widest font-semibold transition-all shadow-md">
+                    Confirmar Asistencia
+                </a>
+                <a href="index.html#inicio" class="px-8 py-3.5 bg-white hover:bg-sand-dark text-charcoal border border-sand-dark rounded text-xs uppercase tracking-widest font-semibold transition-all shadow-sm">
+                    Volver a la Invitación
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#1A1A1A] text-sand-light py-14 text-center">
+        <div class="fade-in-up flex flex-col items-center">
+            <img src="assets/images/logo-marron.png" alt="Logo Fabiana & Fernando" class="w-16 h-auto mb-4 opacity-80 filter brightness-125">
+            <h2 class="text-3xl font-serif italic mb-3">Fabiana & Fernando</h2>
+            <div class="w-12 h-[1px] bg-gold-accent mx-auto mb-4"></div>
+            <p class="text-xs tracking-[0.2em] uppercase text-gray-400 mb-6">27 · Febrero · 2027 · Cantabria</p>
+            <a href="index.html" class="text-xs uppercase tracking-widest text-gold-accent hover:text-white transition-colors">
+                &larr; Volver a la página principal
+            </a>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
+
+        let isMenuOpen = false;
+
+        mobileMenuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                hamburgerIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            }
+        });
+
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
