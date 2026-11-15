@@ -116,15 +116,15 @@
         </div>
     </nav>
 
-    <!-- 1. Hero Section con FotoMain -->
+    <!-- 1. Hero Section con FotoMain y Parallax Motion -->
     <header id="inicio" class="relative h-screen flex flex-col justify-start md:justify-center items-center text-center overflow-hidden pt-20 md:pt-0">
-        <!-- Background Image: FotoMain subida para mostrar a los novios -->
-        <div class="absolute inset-0 z-0 bg-cover bg-no-repeat transition-all duration-700" 
-             style="background-image: url('assets/images/FotoMain.jpeg'); background-position: center 68%;"></div>
-        <div class="absolute inset-0 z-10 hero-overlay"></div>
+        <!-- Background Image con Parallax: FotoMain -->
+        <div id="hero-bg" class="absolute inset-0 z-0 bg-cover bg-no-repeat will-change-transform pointer-events-none" 
+             style="background-image: url('assets/images/FotoMain.jpeg'); background-position: center 68%; transform: translate3d(0, 0, 0);"></div>
+        <div class="absolute inset-0 z-10 hero-overlay pointer-events-none"></div>
         
-        <!-- Contenido textual elevado en móvil para no tapar las caras -->
-        <div class="relative z-20 text-white px-4 fade-in-up mt-2 sm:mt-6 md:mt-16 flex flex-col items-center">
+        <!-- Contenido textual elevado en móvil para no tapar las caras, con Parallax flotante -->
+        <div id="hero-text" class="relative z-20 text-white px-4 fade-in-up mt-2 sm:mt-6 md:mt-16 flex flex-col items-center will-change-transform">
             <!-- Monograma / Logo oficial Marrón -->
             <div class="mb-2 md:mb-4">
                 <img src="assets/images/logo-marron.png" alt="Logo Fabiana & Fernando" class="w-20 sm:w-24 md:w-32 h-auto mx-auto filter drop-shadow-2xl">
@@ -138,6 +138,14 @@
                     Confirmar Asistencia
                 </a>
             </div>
+        </div>
+
+        <!-- Indicador visual animado de scroll para invitar a deslizar -->
+        <div id="scroll-indicator" class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 text-white/80 flex flex-col items-center pointer-events-none transition-all duration-300">
+            <span class="text-[9px] uppercase tracking-[0.3em] mb-1 font-light text-white/70">Desliza</span>
+            <svg class="w-4 h-4 animate-bounce text-gold-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
         </div>
     </header>
 
@@ -820,7 +828,56 @@
             });
         });
 
-        window.addEventListener('scroll', updateNavbarStyles);
+        // ==========================================
+        // 1.1 Hero Parallax & Scroll Motion (Móvil y Escritorio)
+        // ==========================================
+        const heroBg = document.getElementById('hero-bg');
+        const heroText = document.getElementById('hero-text');
+        const scrollIndicator = document.getElementById('scroll-indicator');
+        const heroHeader = document.getElementById('inicio');
+
+        let isParallaxTicking = false;
+
+        function updateHeroParallax() {
+            const scrollY = Math.max(0, window.scrollY || window.pageYOffset || 0);
+            const heroHeight = heroHeader ? heroHeader.offsetHeight : window.innerHeight;
+
+            if (scrollY <= heroHeight + 50) {
+                // Parallax suave en la foto de fondo (movimiento más lento con sutil escala)
+                if (heroBg) {
+                    const bgTranslateY = scrollY * 0.22;
+                    const bgScale = 1 + (scrollY * 0.00028);
+                    heroBg.style.transform = `translate3d(0, ${bgTranslateY.toFixed(1)}px, 0) scale(${bgScale.toFixed(4)})`;
+                }
+
+                // Parallax y desvanecimiento elegante en el texto
+                if (heroText) {
+                    const textTranslateY = scrollY * 0.3;
+                    const textOpacity = Math.max(0, 1 - (scrollY / (heroHeight * 0.72)));
+                    const textScale = Math.max(0.92, 1 - (scrollY * 0.00025));
+                    heroText.style.transform = `translate3d(0, -${textTranslateY.toFixed(1)}px, 0) scale(${textScale.toFixed(4)})`;
+                    heroText.style.opacity = textOpacity.toFixed(3);
+                }
+
+                // Indicador de "Desliza" se desvanece en los primeros píxeles de scroll
+                if (scrollIndicator) {
+                    const indOpacity = Math.max(0, 1 - (scrollY / 70));
+                    scrollIndicator.style.opacity = indOpacity.toFixed(2);
+                }
+            }
+
+            isParallaxTicking = false;
+        }
+
+        function handleWindowScroll() {
+            updateNavbarStyles();
+            if (!isParallaxTicking) {
+                window.requestAnimationFrame(updateHeroParallax);
+                isParallaxTicking = true;
+            }
+        }
+
+        window.addEventListener('scroll', handleWindowScroll, { passive: true });
 
         // ==========================================
         // 2. Countdown Timer
